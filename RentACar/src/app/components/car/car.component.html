@@ -1,1 +1,21 @@
-<p>car works!</p>
+<table *ngIf="dataLoaded == true" class="table">
+    <thead>
+        <th>Car ID</th>
+        <th>Brand</th>
+        <th>Color</th>
+        <th>modelYear</th>
+        <th>dailyPrice</th>
+        <th>descriptions</th>        
+        <th>Car Name</th>
+    </thead>
+
+    <tr *ngFor="let car of cars">
+        <td>{{car.carId}}</td>
+        <td>{{car.brandId}}</td>
+        <td>{{car.colorId}}</td>
+        <td>{{car.modelYear}}</td>
+        <td>{{car.dailyPrice}}</td>
+        <td>{{car.descriptions}}</td>
+        <td>{{car.carName}}</td>
+    </tr>
+</table>
