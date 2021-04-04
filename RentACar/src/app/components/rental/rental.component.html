@@ -1,1 +1,16 @@
-<p>rental works!</p>
+
+<table *ngIf="dataLoaded == true" class="table">
+    <thead>
+        <th>Customer ID</th>
+        <th>User Id</th>
+        <th>Customer Name</th>
+    </thead>
+
+    <tr *ngFor="let rental of rentals">
+        <td>{{rental.rentalId}}</td>
+        <td>{{rental.carId}}</td>
+        <td>{{rental.customerId}}</td>
+        <td>{{rental.rentDate}}</td>
+        <td>{{rental.returnDate}}</td>
+    </tr>
+</table>
