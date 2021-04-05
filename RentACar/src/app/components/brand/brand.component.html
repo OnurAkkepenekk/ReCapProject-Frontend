@@ -1,11 +1,11 @@
-<table *ngIf="dataLoaded == true" class="table">
-    <thead>
-        <th>Brand ID</th>
-        <th>Brand Name</th>
-    </thead>
-
-    <tr *ngFor="let brand of brands">
-        <td>{{brand.brandId}}</td>
-        <td>{{brand.brandName}}</td>
-    </tr>
-</table>
+<ul class="list-group" *ngIf="dataLoaded == true">
+  <li
+    *ngFor="let brand of brands"
+    (click)="setCurrentBrand(brand)"
+    routerLink="/cars/brand/{{ brand.brandId }}"
+    [class]="getCurrentBrandClass(brand)"
+  >
+    {{ brand.brandName }}
+  </li>
+</ul>
+<h5 *ngIf="currentBrand">{{ currentBrand.brandName }}</h5>
