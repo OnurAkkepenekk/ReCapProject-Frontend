@@ -1,21 +1,86 @@
-<table *ngIf="dataLoaded == true" class="table">
-    <thead>
-        <th>Car ID</th>
-        <th>Brand</th>
-        <th>Color</th>
-        <th>modelYear</th>
-        <th>dailyPrice</th>
-        <th>descriptions</th>        
-        <th>Car Name</th>
-    </thead>
+<div class="container">
+  <div
+    *ngIf="dataLoaded == false"
+    class="spinner-border text-primary"
+    role="status"
+  >
+    <span class="visually-hidden">Loading...</span>
+  </div>
 
-    <tr *ngFor="let car of cars">
-        <td>{{car.carId}}</td>
-        <td>{{car.brandId}}</td>
-        <td>{{car.colorId}}</td>
-        <td>{{car.modelYear}}</td>
-        <td>{{car.dailyPrice}}</td>
-        <td>{{car.descriptions}}</td>
-        <td>{{car.carName}}</td>
-    </tr>
-</table>
+  <div class="mb-3">
+    <label for="filterText" class="form-label"></label>
+    <input
+      type="text"
+      [(ngModel)]="filterText"
+      class="form-control"
+      id="filterText"
+      placeholder="Search Cars"
+    />
+  </div>
+
+  <div *ngIf="filterText.length > 2" class="alert alert-primary">
+    {{ filterText }} aradınız
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <select
+        [(ngModel)]="selectedBrand"
+        class="form-select"
+        aria-label="Default select example"
+      >
+        <option *ngFor="let brand of brands" value="{{ brand.brandId }}">
+          {{ brand.brandName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-5">
+      <select
+        [(ngModel)]="selectedColor"
+        class="form-select"
+        aria-label="Default select example"
+      >
+        <option *ngFor="let color of colors" value="{{ color.colorId }}">
+          {{ color.colorName }}
+        </option>
+      </select>
+    </div>
+    <div class="row justify-content-evenly col-md-2">
+      <div class="col-5">
+        <a
+          routerLink="/cars/filter/{{ selectedBrand }}/{{ selectedColor }}"
+          class="btn btn-warning"
+          >Search</a
+        >
+      </div>
+      <div class="col-5">
+        <a routerLink="cars" class="btn btn-danger">Clear</a>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <div class="">
+    <div class="row justify-content-xl-center">
+      <div class="col-md-3"></div>
+      <div class="row col-md-9">
+        <div *ngFor="let car of cars |carFilterPipe:filterText" class="col-md-4 mb-4">
+          <div class="card">
+            <!-- <img [src]="SetImage(car)" class="card-img-top myimg" alt="{{ car.description }}" /> -->
+            <div class="card-body">
+              <h4 class="card-title">{{ car.carName | uppercase }}</h4>
+              <p class="card-text"><b>Açıklama:</b> {{ car.descriptions }}.</p>
+              <p class="card-text">
+                <b>Günlük Fiyat:</b> {{ car.dailyPrice | currency }} <br />
+                <b>KDV Dahil:</b> {{ car.dailyPrice | currency }}
+              </p>
+              <button (click)="addToCart(car)" class="btn btn-success float-end ms-2">Rent it</button>
+              <button routerLink="/cars/detail/{{ car.carId }}" class="btn btn-primary float-end ms-2">Details</button>
+              <!-- <button routerLink="/cars/update/{{ car.carId }}" class="btn btn-primary float-end">Güncelle</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

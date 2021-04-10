@@ -1,13 +1,32 @@
-<ul class="list-group" *ngIf="dataLoaded == true">
-  <th>All Colors</th>
-  <li
-    *ngFor="let color of colors"
-    (click)="setCurrentColor(color)"
-    routerLink="/cars/color/{{ color.colorId }}"
-    [class]="getCurrentColorClass(color)"
-  >
-    <td>{{ color.colorName }}</td>
-  </li>
-</ul>
+<div
+  *ngIf="dataLoaded == false"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
 
-<h5 *ngIf="currentColor">{{ currentColor.colorName }}</h5>
+<!-- <div class="mb-3">
+  <label for="filterText" class="form-label">Search Color</label>
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="Search Colors"
+  />
+</div> -->
+<div *ngIf="filterText.length > 2" class="alert alert-primary">
+  {{ filterText }} aradınız
+</div>
+<div class="row">
+  <div class="col-12">
+    <select class="form-select mb-3" aria-label="Default select example">
+      <option selected>Open this select menu</option>
+      <option *ngFor="let color of colors" value="{{ color.colorId }}">
+        {{ color.colorName }}
+      </option>
+    </select>
+  </div>
+</div>
+

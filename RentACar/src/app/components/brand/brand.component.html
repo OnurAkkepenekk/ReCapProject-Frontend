@@ -1,11 +1,35 @@
-<ul class="list-group" *ngIf="dataLoaded == true">
-  <li
-    *ngFor="let brand of brands"
-    (click)="setCurrentBrand(brand)"
-    routerLink="/cars/brand/{{ brand.brandId }}"
-    [class]="getCurrentBrandClass(brand)"
-  >
-    {{ brand.brandName }}
-  </li>
-</ul>
-<h5 *ngIf="currentBrand">{{ currentBrand.brandName }}</h5>
+<div
+  *ngIf="dataLoaded == false"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div class="container">
+  <!-- <div class="mb-3">
+    <label for="filterText" class="form-label">Search Car</label>
+    <input
+      type="text"
+      [(ngModel)]="filterText"
+      class="form-control"
+      id="filterText"
+      placeholder="Search Cars"
+    />
+  </div> -->
+
+  <div *ngIf="filterText.length > 2" class="alert alert-primary">
+    {{ filterText }} aradınız
+  </div>
+  <!-- Option -->
+  <div class="row">
+    <div class="col-12">
+      <select class="form-select mb-3" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option *ngFor="let brand of brands" value="{{ brand.brandId }}">
+          {{ brand.brandName }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+</div>
