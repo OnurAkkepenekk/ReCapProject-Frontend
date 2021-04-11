@@ -1,11 +1,87 @@
-<ul class="list-group" *ngIf="dataLoaded == true">
-  <h3>All Cars</h3>
-  <div>
-    <li>
-      {{ cars.colorName }}
-      {{ cars.colorId }}
-    </li>
+<div class="row my-5">
+  <div class="col-md-8">
+    <div
+      id="carouselExampleDark"
+      class="carousel carousel-fade slide carousel-dark"
+      data-bs-ride="carousel"
+    >
+      <ol class="carousel-indicators">
+        <li
+          data-bs-target="#carouselExampleDark"
+          *ngFor="let li of carImages; let i = index"
+          [attr.data-bs-slide-to]="i"
+          [class]="i == 0 ? 'active' : ''"
+        ></li>
+      </ol>
+
+      <div class="carousel-inner">
+        <div
+          *ngFor="let carImage of carImages"
+          [class]="getCurrentImageClass(carImage)"
+          data-bs-interval="3000"
+        >
+          <img
+            src="{{ baseUrl + carImage.imagePath }}"
+            style="height: 100%; width: 100%; object-fit: contain"
+          />
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
   </div>
-</ul>
+  <div class="col-md-4" *ngIf="dataLoaded == true">
+    <div class="card" *ngFor="let car of cars">
+      <div class="card-body">
+        <h5 class="card-title">
+          <strong> {{ car.brandName }}</strong>
+        </h5>
+        <p class="card-text">{{ car.description }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Marka : {{ car.brandName }}</li>
+        <li class="list-group-item">Model : {{ car.modelYear }}</li>
+        <li class="list-group-item">Renk : {{ car.colorName }}</li>
+        <li class="list-group-item">Günlük Ücret : {{ car.dailyPrice }} TL</li>
+      </ul>
+      <div class="card-body">--></div>
+    </div>
+  </div>
+</div>
+<!-- <div *ngIf="isCarRentable; then rentButton; else denyButton"></div> -->
+
+<!-- <ng-template #rentButton><button type="button" class="btn btn-success" >Kirala</button></ng-template> -->
+
+<!-- <ng-template #rentButton>
+          <app-rental-add [car]="currentCar"></app-rental-add
+        ></ng-template> -->
+
+<!-- <ng-template #denyButton
+          ><button type="button" class="btn btn-danger disabled">
+            Already Rented
+          </button></ng-template
+        >
+      </div>
+    </div>
+  </div>
+</div> -->
 
 

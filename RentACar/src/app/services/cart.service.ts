@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Car } from '../models/car';
 import { CarDetail } from '../models/CarDTO';
 import { CartItem } from '../models/cartItem';
 import { CartItems } from '../models/cartItems';
@@ -9,8 +10,9 @@ import { CartItems } from '../models/cartItems';
 export class CartService {
   constructor() {}
 
-  addToCart(car: CarDetail) {
+  addToCart(car: Car) {
     let item = CartItems.find((c) => c.car.carId === car.carId);
+    console.log(item);
     if (item) {
       item.quantity += 1;
     } else {
@@ -18,6 +20,7 @@ export class CartService {
       cartItem.car = car;
       cartItem.quantity = 1;
       CartItems.push(cartItem);
+      console.log(cartItem);
     }
   }
   listCars(): CartItem[] {

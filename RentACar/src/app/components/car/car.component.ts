@@ -15,11 +15,11 @@ import { ColorService } from 'src/app/services/color.service';
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
-  styleUrls: ['./car.component.css'],
+  styleUrls: ['./car.component.css'], 
 })
 export class CarComponent implements OnInit {
-  cars: CarDetail[] = [];
-  carsWithDetail: CarDetail[] = [];
+  cars: Car[] = [];
+  carsWithDetails: CarDetail[] = [];
   carsFilter: CarDetail[] = [];
   colors: Color[] = [];
   brands: Brand[] = [];
@@ -93,12 +93,15 @@ export class CarComponent implements OnInit {
       });
   }
   addToCart(car:Car){
+    console.log(car);
     if(car.carId===3){
       this.toastrService.error(car.carName,"Error");
     }
     else{
-      this.cartService.addToCart(car);
+    console.log(car);
+
       this.toastrService.success(car.carName,"add to cart");
+      this.cartService.addToCart(car);
     }
   }
 }

@@ -1,0 +1,19 @@
+<li *ngIf="cartItems.length" class="nav-item dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    href="#"
+    id="navbarDropdown"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Cart
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <li *ngFor="let cartItem of cartItems">
+      <a class="dropdown-item">{{ cartItem.car.carName }}</a>
+    </li>
+    <li><hr class="dropdown-divider" /></li>
+    <li><a class="dropdown-item" href="#">Go cart</a></li>
+  </ul>
+</li>
