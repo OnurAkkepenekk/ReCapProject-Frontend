@@ -16,10 +16,23 @@ export class RentalComponent implements OnInit {
     this.getRentals();
   }
   getRentals() {
-    this.rentalService.getCustomers().subscribe((response) => {
+    this.rentalService.getRentals().subscribe((response) => {
       this.rentals = response.data;
       console.log(response);
       this.dataLoaded = true;
     });
   }
+  getRentalDetails(carId:number){
+    this.rentalService.getRentalsByCarId(carId).subscribe(response => {
+      this.rentals = response.data;
+    })
+  }
+  returnDateCheck(rental: Rental): string {
+    let date: Date = new Date();
+    if (rental.returnDate.toString() < date.toJSON().toString()) {
+      return 'table-secondary'
+    }
+    return 'table-danger';
+  }
+
 }

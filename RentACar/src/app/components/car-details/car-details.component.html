@@ -57,7 +57,7 @@
         <p class="card-text">{{ car.description }}</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Marka : {{ car.brandName }}</li>
+        <li class="list-group-item">Brand : {{ car.brandName }}</li>
         <li class="list-group-item">Model : {{ car.modelYear }}</li>
         <li class="list-group-item">Renk : {{ car.colorName }}</li>
         <li class="list-group-item">Günlük Ücret : {{ car.dailyPrice }} TL</li>
@@ -66,22 +66,15 @@
     </div>
   </div>
 </div>
-<!-- <div *ngIf="isCarRentable; then rentButton; else denyButton"></div> -->
-
-<!-- <ng-template #rentButton><button type="button" class="btn btn-success" >Kirala</button></ng-template> -->
-
-<!-- <ng-template #rentButton>
-          <app-rental-add [car]="currentCar"></app-rental-add
-        ></ng-template> -->
-
-<!-- <ng-template #denyButton
-          ><button type="button" class="btn btn-danger disabled">
-            Already Rented
-          </button></ng-template
-        >
-      </div>
-    </div>
-  </div>
-</div> -->
 
 
+<div *ngIf="isCarRentable; then rentButton; else denyButton"></div>
+<ng-template #rentButton>
+  <button type="button" class="btn btn-success">Kirala</button>> ></ng-template
+>
+
+<ng-template #denyButton
+  ><button type="button" class="btn btn-danger disabled">
+    Already Rented
+  </button></ng-template
+>

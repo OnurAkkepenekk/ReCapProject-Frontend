@@ -1,86 +1,55 @@
 <div class="container">
-  <div
-    *ngIf="dataLoaded == false"
-    class="spinner-border text-primary"
-    role="status"
-  >
-    <span class="visually-hidden">Loading...</span>
-  </div>
+  <h4>ARAÇLAR</h4>
 
-  <div class="mb-3">
-    <label for="filterText" class="form-label"></label>
-    <input
-      type="text"
-      [(ngModel)]="filterText"
-      class="form-control"
-      id="filterText"
-      placeholder="Search Cars"
-    />
-  </div>
-
-  <div *ngIf="filterText.length > 2" class="alert alert-primary">
-    {{ filterText }} aradınız
-  </div>
   <div class="row">
-    <div class="col-md-5">
-      <select
-        [(ngModel)]="selectedBrand"
-        class="form-select"
-        aria-label="Default select example"
-      >
-        <option *ngFor="let brand of brands" value="{{ brand.brandId }}">
-          {{ brand.brandName }}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-md-5">
-      <select
-        [(ngModel)]="selectedColor"
-        class="form-select"
-        aria-label="Default select example"
-      >
-        <option *ngFor="let color of colors" value="{{ color.colorId }}">
-          {{ color.colorName }}
-        </option>
-      </select>
-    </div>
-    <div class="row justify-content-evenly col-md-2">
-      <div class="col-5">
-        <a
-          routerLink="/cars/filter/{{ selectedBrand }}/{{ selectedColor }}"
-          class="btn btn-warning"
-          >Search</a
-        >
-      </div>
-      <div class="col-5">
-        <a routerLink="cars" class="btn btn-danger">Clear</a>
+    <div class="col-12 mb-3">
+      <label for="filterText" class="form-label">Araba Ara</label>
+      <input
+        type="text"
+        [(ngModel)]="filterText"
+        class="form-control"
+        id="filterText"
+        placeholder="Arama İfadesi"
+      />
+      <div *ngIf="filterText" class="alert alert-info mt-1">
+        {{ filterText }} aradınız.
       </div>
     </div>
-  </div>
-  <hr />
-
-  <div class="">
-    <div class="row justify-content-xl-center">
-      <div class="col-md-3"></div>
-      <div class="row col-md-9">
-        <div *ngFor="let car of cars |carFilterPipe:filterText" class="col-md-4 mb-4">
-          <div class="card">
-            <!-- <img [src]="SetImage(car)" class="card-img-top myimg" alt="{{ car.description }}" /> -->
-            <div class="card-body">
-              <h4 class="card-title">{{ car.carName | uppercase }}</h4>
-              <p class="card-text"><b>Açıklama:</b> {{ car.descriptions }}.</p>
-              <p class="card-text">
-                <b>Günlük Fiyat:</b> {{ car.dailyPrice | currency }} <br />
-                <b>KDV Dahil:</b> {{ car.dailyPrice | currency }}
-              </p>
-              <button (click)="addToCart(car)" class="btn btn-success float-end ms-2">Rent it</button>
-              <button routerLink="/cars/detail/{{ car.carId }}" class="btn btn-primary float-end ms-2">Details</button>
-              <!-- <button routerLink="/cars/update/{{ car.carId }}" class="btn btn-primary float-end">Güncelle</button> -->
-            </div>
+    <ng-container *ngFor="let carDetail of carsWithDetails">
+      <div class="col-4 mb-3">
+      <div class="card">
+        <div class="card">
+          <div>
+            <img
+              [src]="getImageUrl(carDetail.carImages[0].imagePath)"
+              class="card-img-top"
+              style="height: 200px"
+            />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ carDetail.carName }}</h5>
+            <p class="card-text">
+              <b>Model Yılı:</b> {{ carDetail.modelYear }}
+            </p>
+            <hr />
+            <p class="card-text"><b>Renk:</b> {{ carDetail.colorName }}</p>
+            <hr />
+            <p class="card-text">
+              <b>Günlük Fiyat:</b> {{ carDetail.dailyPrice }} ₺
+            </p>
+            <hr />
+            <p class="card-text">
+              <b>Açıklama:</b> {{ carDetail.description }}
+            </p>
+            <a
+              routerLink="/cars/carDetails/{{ carDetail.id }}"
+              class="btn btn-primary"
+              >Detay</a
+            >
           </div>
         </div>
       </div>
     </div>
+    </ng-container>
   </div>
 </div>

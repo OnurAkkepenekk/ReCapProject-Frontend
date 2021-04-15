@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CarDetail } from 'src/app/models/CarDTO';
 import { CarImage } from 'src/app/models/carImage';
+import { Rental } from 'src/app/models/rental';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarImageService } from 'src/app/services/car-image.service';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-car-details',
@@ -14,11 +16,15 @@ export class CarDetailsComponent implements OnInit {
   baseUrl = 'https://localhost:44369';
   carImages: CarImage[];
   cars: CarDetail[];
+  rentals: Rental[];
   dataLoaded = false;
+  isCarRentable = false;
+  carId:number;
   constructor(
     private carDetailService: CarDetailService,
     private activatedRoute: ActivatedRoute,
-    private carImageService: CarImageService
+    private carImageService: CarImageService,
+    private rentalService: RentalService
   ) {}
 
   ngOnInit(): void {
@@ -26,17 +32,32 @@ export class CarDetailsComponent implements OnInit {
       if (params['carId']) {
         this.getCarByCarId(params['carId']);
         this.getCarImagesByCarId(params['carId']);
+        this.carId=params['carId'];
+        this.getRentalDetails(this.carId);
       }
     });
   }
 
-  //  Id'ye göre ımages
-  getCarImagesByCarId(CarId: number) {
-    this.carImageService.getImagesByCarId(CarId).subscribe((response) => {
+  getCarImagesByCarId(carId: number) {
+    this.carImageService.getImagesByCarId(carId).subscribe((response) => {
       this.carImages = response.data;
     });
   }
-
+  getRentalDetails(carId: number) {
+    this.rentalService.getRentalsByCarId(carId).subscribe((response) => {
+      this.rentals = response.data;
+      console.log(this.isCarRentable);
+      this.returnDateCheck(this.rentals);
+      console.log(this.isCarRentable);
+    });
+  }
+  returnDateCheck(rental: Rental[]) {
+    let date: Date = new Date();
+    console.log(date);
+    if (rental[0].returnDate.toString() < date.toJSON().toString()) {
+      this.isCarRentable = true;
+    }
+  }
   setClassName(index: Number) {
     if (index == 0) {
       return 'carousel-item active';
