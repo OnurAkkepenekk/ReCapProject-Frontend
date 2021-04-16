@@ -20,6 +20,10 @@ export class CarDetailsComponent implements OnInit {
   dataLoaded = false;
   isCarRentable = false;
   carId:number;
+
+  returnDate:Date;
+  rentDate:Date;
+
   constructor(
     private carDetailService: CarDetailService,
     private activatedRoute: ActivatedRoute,
@@ -35,6 +39,9 @@ export class CarDetailsComponent implements OnInit {
         this.carId=params['carId'];
         this.getRentalDetails(this.carId);
       }
+      else if(params["rentDate"]&& params["carId"]){
+        this.isValidForDate(params["rentDate"],params["carId"]);
+      }
     });
   }
 
@@ -46,17 +53,14 @@ export class CarDetailsComponent implements OnInit {
   getRentalDetails(carId: number) {
     this.rentalService.getRentalsByCarId(carId).subscribe((response) => {
       this.rentals = response.data;
-      console.log(this.isCarRentable);
-      this.returnDateCheck(this.rentals);
-      console.log(this.isCarRentable);
     });
   }
-  returnDateCheck(rental: Rental[]) {
-    let date: Date = new Date();
-    console.log(date);
-    if (rental[0].returnDate.toString() < date.toJSON().toString()) {
-      this.isCarRentable = true;
-    }
+  returnDateCheck(carId: number) {
+    this.rentalService.getRentalsByCarId(carId).subscribe(response => {
+      if(response){
+        console.log(response);
+      }
+    })
   }
   setClassName(index: Number) {
     if (index == 0) {
@@ -78,5 +82,15 @@ export class CarDetailsComponent implements OnInit {
     } else {
       return 'carousel-item';
     }
+  }
+  isValidForDate(rentDate:Date,carId:number){
+    this.rentalService.checkAvailability(rentDate,carId).subscribe(response=>{
+      this.isCarRentable=response.success;
+      if(this.isCarRentable ==true){
+      this.dataLoaded = true;
+      }else{
+      this.dataLoaded = false;
+      }
+    })
   }
 }
