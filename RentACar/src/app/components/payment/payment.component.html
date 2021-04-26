@@ -1,0 +1,149 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Kartı Bilgileri</h4>
+  <button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="creditCardForm">
+    <div class="form-group">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"></th>
+            <td><label>Kiralama Tarihi :</label></td>
+            <td>
+              <input
+                type="date"
+                id="rentDate"
+                name="rentDate"
+                formControlName="rentDate"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td><label>Teslim Tarihi :</label></td>
+            <td>
+              <input
+                type="date"
+                id="returnDate"
+                name="returnDate"
+                formControlName="returnDate"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td>
+              <button
+                type="button"
+                [disabled]="
+                  creditCardForm.controls['rentDate'].invalid ||
+                  creditCardForm.controls['returnDate'].invalid
+                "
+                class="btn btn-info"
+                (click)="checkCanRental()"
+              >
+                Kontrol Et
+              </button>
+            </td>
+          </tr>
+          <ng-container>
+            <tr>
+              <th scope="row"></th>
+              <td><label>Toplam Tutar : </label></td>
+              <td>
+                <h2
+                  *ngIf="
+                    creditCardForm.controls['rentDate'].valid &&
+                    creditCardForm.controls['returnDate'].valid &&
+                    isCarRentable == true
+                  "
+                >{{printTotalPrice()}} $</h2>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>
+                <label for="cardHolderName">Kart Üzerindeki İsim :</label>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="cardHolderName"
+                  name="cardHolderName"
+                  formControlName="cardHolderName"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>
+                <label
+                  for="cardNumber"
+                  [ngClass]="{
+                    errorStyle: creditCardForm.controls['cardNumber'].invalid
+                  }"
+                  >Kart Numarası :</label
+                >
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="cardNumber"
+                  name="cardNumber"
+                  formControlName="cardNumber"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Son Kullanım Ay :</td>
+              <td>
+                <input
+                  type="text"
+                  id="expirationMonth"
+                  name="expirationMonth"
+                  formControlName="expirationMonth"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Son Kullanım Yıl :</td>
+              <td>
+                <input
+                  type="text"
+                  id="expirationYear"
+                  name="expirationYear"
+                  formControlName="expirationYear"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>CVV :</td>
+              <td>
+                <input type="text" id="cvv" name="cvv" formControlName="cvv" />
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger mr-2">İptal</button>
+      <button class="btn btn-success mr-2" [disabled]="creditCardForm.invalid">
+        Ödeme Yap
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,9 +1,9 @@
 <div class="container">
-  <h4>ARAÇLAR</h4>
+  <h4>CARS</h4>
 
   <div class="row">
     <div class="col-12 mb-3">
-      <label for="filterText" class="form-label">Araba Ara</label>
+      <label for="filterText" class="form-label">Search Car</label>
       <input
         type="text"
         [(ngModel)]="filterText"
@@ -15,7 +15,7 @@
         {{ filterText }} aradınız.
       </div>
     </div>
-    <ng-container *ngFor="let carDetail of carsWithDetails">
+    <ng-container *ngFor="let carDetail of carsWithDetails |carFilterPipe:filterText">
       <div class="col-4 mb-3">
       <div class="card">
         <div class="card">
@@ -27,7 +27,7 @@
             />
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{ carDetail.carName }}</h5>
+            <h5 class="card-title">{{ carDetail.name }}</h5>
             <p class="card-text">
               <b>Model Yılı:</b> {{ carDetail.modelYear }}
             </p>
@@ -35,16 +35,16 @@
             <p class="card-text"><b>Renk:</b> {{ carDetail.colorName }}</p>
             <hr />
             <p class="card-text">
-              <b>Günlük Fiyat:</b> {{ carDetail.dailyPrice }} ₺
+              <b>Günlük Fiyat:</b> {{ carDetail.dailyPrice }} $
             </p>
             <hr />
             <p class="card-text">
-              <b>Açıklama:</b> {{ carDetail.description }}
+              <b>Descriptions:</b> {{ carDetail.description }}
             </p>
             <a
               routerLink="/cars/carDetails/{{ carDetail.id }}"
               class="btn btn-primary"
-              >Detay</a
+              > Car Details</a
             >
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -18,6 +19,7 @@ import { ColorFilterPipePipe } from './pipes/color-filter-pipe.pipe';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
 import {ToastrModule} from 'ngx-toastr';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +35,13 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     ColorFilterPipePipe,
     CarDetailsComponent,
     CartSummaryComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({

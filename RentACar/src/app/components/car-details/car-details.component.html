@@ -97,7 +97,13 @@
           <div class="card-body">
             <div *ngIf="isCarRentable; then rentButton; else denyButton"></div>
             <ng-template #rentButton>
-              <button type="button" class="btn btn-success">Rent</button>
+              <button
+                type="button"
+                class="btn btn-success"
+                routerLink="/rentals/{{ carId }}"
+              >
+                Rent
+              </button>
             </ng-template>
             <ng-template #denyButton
               ><button type="button" class="btn btn-danger disabled">

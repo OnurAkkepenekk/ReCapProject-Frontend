@@ -19,10 +19,10 @@ export class CarDetailsComponent implements OnInit {
   rentals: Rental[];
   dataLoaded = false;
   isCarRentable = false;
-  carId:number;
+  carId: number;
 
-  returnDate:Date;
-  rentDate:Date;
+  returnDate: Date;
+  rentDate: Date;
 
   constructor(
     private carDetailService: CarDetailService,
@@ -36,11 +36,10 @@ export class CarDetailsComponent implements OnInit {
       if (params['carId']) {
         this.getCarByCarId(params['carId']);
         this.getCarImagesByCarId(params['carId']);
-        this.carId=params['carId'];
+        this.carId = params['carId'];
         this.getRentalDetails(this.carId);
-      }
-      else if(params["rentDate"]&& params["carId"]){
-        this.isValidForDate(params["rentDate"],params["carId"]);
+      } else if (params['rentDate'] && params['carId']) {
+        this.isValidForDate(params['rentDate'], params['carId']);
       }
     });
   }
@@ -56,11 +55,11 @@ export class CarDetailsComponent implements OnInit {
     });
   }
   returnDateCheck(carId: number) {
-    this.rentalService.getRentalsByCarId(carId).subscribe(response => {
-      if(response){
+    this.rentalService.getRentalsByCarId(carId).subscribe((response) => {
+      if (response) {
         console.log(response);
       }
-    })
+    });
   }
   setClassName(index: Number) {
     if (index == 0) {
@@ -83,14 +82,16 @@ export class CarDetailsComponent implements OnInit {
       return 'carousel-item';
     }
   }
-  isValidForDate(rentDate:Date,carId:number){
-    this.rentalService.checkAvailability(rentDate,carId).subscribe(response=>{
-      this.isCarRentable=response.success;
-      if(this.isCarRentable ==true){
-      this.dataLoaded = true;
-      }else{
-      this.dataLoaded = false;
-      }
-    })
+  isValidForDate(rentDate: Date, carId: number) {
+    this.rentalService
+      .checkAvailability(rentDate, carId)
+      .subscribe((response) => {
+        this.isCarRentable = response.success;
+        if (this.isCarRentable == true) {
+          this.dataLoaded = true;
+        } else {
+          this.dataLoaded = false;
+        }
+      });
   }
 }
