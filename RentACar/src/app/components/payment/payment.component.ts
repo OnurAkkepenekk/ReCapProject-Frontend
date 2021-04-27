@@ -14,6 +14,7 @@ import { RentalService } from 'src/app/services/rental.service';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/CarDTO';
+import { Rental } from 'src/app/models/rental';
 
 @Component({
   selector: 'app-payment',
@@ -26,7 +27,8 @@ export class PaymentComponent implements OnInit {
   carId: number;
   car: CarDetail[];
   isCarRentable = false;
-  totalPrice: number = 19;
+  totalPrice: number;
+  rental: Partial<Rental> = {};
   constructor(
     private formBuilder: FormBuilder,
     private paymentService: PaymentService,
@@ -126,6 +128,25 @@ export class PaymentComponent implements OnInit {
     }
   }
   printTotalPrice() {
-    return this.calculateTotalPrice(this.calculationDate(),this.car[0].dailyPrice);
+    return this.calculateTotalPrice(
+      this.calculationDate(),
+      this.car[0].dailyPrice
+    );
+  }
+  onClickSubmit() {
+    this.paymentService.checkCreditCard('1').subscribe((response) => {
+      this.creditCard = response.data;
+    });
+    let cardModel = Object.assign({}, this.creditCardForm.value);
+    this.rental.carId = this.creditCardForm.controls['cardNumber'].value;
+    //this.rental.customerId = 1;
+    //this.rental.rentDate = this.creditCardForm.controls['rentDate'].value;
+    //this.rental.returnDate = this.creditCardForm.controls['returnDate'].value;
+    if (this.creditCard.cardNumber == this.rental.carId) {
+      this.toastrService.success("Payment is ok!");
+    }
+    else{
+      this.toastrService.error("Payment not okay");
+    }
   }
 }

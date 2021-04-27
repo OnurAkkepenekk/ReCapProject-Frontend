@@ -17,7 +17,7 @@
         <tbody>
           <tr>
             <th scope="row"></th>
-            <td><label>Kiralama Tarihi :</label></td>
+            <td><label>Rent Date :</label></td>
             <td>
               <input
                 type="date"
@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <th scope="row"></th>
-            <td><label>Teslim Tarihi :</label></td>
+            <td><label>Return Date :</label></td>
             <td>
               <input
                 type="date"
@@ -56,7 +56,7 @@
               </button>
             </td>
           </tr>
-          <ng-container>
+          <ng-container *ngIf="isCarRentable">
             <tr>
               <th scope="row"></th>
               <td><label>Toplam Tutar : </label></td>
@@ -64,8 +64,7 @@
                 <h2
                   *ngIf="
                     creditCardForm.controls['rentDate'].valid &&
-                    creditCardForm.controls['returnDate'].valid &&
-                    isCarRentable == true
+                    creditCardForm.controls['returnDate'].valid
                   "
                 >{{printTotalPrice()}} $</h2>
               </td>
@@ -140,8 +139,8 @@
       </table>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-danger mr-2">İptal</button>
-      <button class="btn btn-success mr-2" [disabled]="creditCardForm.invalid">
+      <button class="btn btn-danger mr-2" >İptal</button>
+      <button type="submit" class="btn btn-success mr-2" (click)="onClickSubmit()">
         Ödeme Yap
       </button>
     </div>
