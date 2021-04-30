@@ -32,4 +32,7 @@ export class CarService {
     let newPath = this.apiUrl + 'cars/getAllWithDetail';
     return this.httpClient.get<ListResponseModel<CarDetail>>(newPath);
   }
+  add(car: Car) {
+    return this.httpClient.post(this.apiUrl + 'cars/add', car);
+  }
 }
