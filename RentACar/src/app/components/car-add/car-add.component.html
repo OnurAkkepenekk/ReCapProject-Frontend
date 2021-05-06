@@ -21,7 +21,7 @@
             <div>
               <select class="form-group" formControlName="brandId">
                 <option [disabled]="true">Select Brand</option>
-                <option *ngFor="let brand of brands" [value]="brand.brandId">
+                <option *ngFor="let brand of brands" [value]="brand.brandId" type="number">
                   {{ brand.brandName }}
                 </option>
               </select>
@@ -33,7 +33,7 @@
             <div class="form-group">
               <select formControlName="colorId">
                 <option [disabled]="true">Select Color</option>
-                <option *ngFor="let color of colors" [value]="color.colorId">
+                <option *ngFor="let color of colors" [value]="color.colorId" type="number">
                   {{ color.colorName }}
                 </option>
               </select>

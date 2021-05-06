@@ -45,17 +45,9 @@ export class CarComponent implements OnInit {
       if (params['brandId'] && params['colorId']) {
         this.getCarsByFilter(params['brandId'], params['colorId']);
       }
-      // } else if (params['brandId']) {
-      //   console.log(params['brandId']);
-      //   this.getCarsByBrand(params['brandId']);
-      // } else if (params['colorId']) {
-      //   console.log(params['colorId']);
-      //   this.getCarsByColor(params['colorId']);
-      // } else {
       this.getCars();
       this.getColors();
       this.getBrands();
-
     });
   }
   getCars() {
@@ -109,21 +101,4 @@ export class CarComponent implements OnInit {
       this.cartService.addToCart(car);
     }
   }
-
-  // setImage(){
-
-  // }
-  // getCarsByBrand(brandId: number) {
-  //   this.carService.getCarsByBrand(brandId).subscribe((response) => {
-  //     this.cars = response.data;
-  //     this.dataLoaded = true;
-  //   });
-  // }
-
-  // getCarsByColor(colorId: number) {
-  //   this.carService.getCarsByColor(colorId).subscribe((response) => {
-  //     this.cars = response.data;
-  //     this.dataLoaded = true;
-  //   });
-  // }
 }
