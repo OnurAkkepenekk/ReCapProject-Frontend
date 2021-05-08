@@ -47,17 +47,28 @@ export class CarAddComponent implements OnInit {
 
   add() {
     let carModel = Object.assign({}, this.carAddForm.value);
-    carModel.brandId=parseInt(carModel.brandId);
-    carModel.colorId=parseInt(carModel.colorId);
+    carModel.brandId = parseInt(carModel.brandId);
+    carModel.colorId = parseInt(carModel.colorId);
 
     if (this.carAddForm.valid) {
-      this.carService.add(carModel).subscribe((response) => {
-        if(response.success){
-        this.toasterService.success('Car added successfully');
+      this.carService.add(carModel).subscribe(
+        (response) => {
+          if (response.success) {
+            this.toasterService.success('Car added successfully');
+          }
+        },
+        (responseError) => {
+          console.log(responseError);
+          if (responseError.error.Errors.length > 0) {
+            console.log(responseError.error.Errors);
+            for (let i = 0; i < responseError.error.Errors.length; i++) {
+              this.toasterService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama hatası");
+            }
+          }
         }
-      });
+      );
     } else {
-      this.toasterService.error('Not add car!!!!', 'Dikkat');
+      this.toasterService.error('Not add car!!!!', 'Error');
     }
   }
 

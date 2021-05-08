@@ -30,13 +30,27 @@ export class BrandAddComponent implements OnInit {
     let brandModel = Object.assign({}, this.brandAddForm.value);
 
     if (this.brandAddForm.valid) {
-      this.brandService.addBrand(brandModel).subscribe((response) => {
-        if (response.success) {
-          this.toasterService.success('Brand added successfully', 'Success');
-        } else {
-          this.toasterService.success("Brand didn't add", 'Error');
+      this.brandService.addBrand(brandModel).subscribe(
+        (response) => {
+          if (response.success) {
+            this.toasterService.success('Brand added successfully', 'Success');
+          }
+        },
+        (responseError) => {
+          console.log(responseError);
+          if (responseError.error.Errors.length > 0) {
+            console.log(responseError.error.Errors);
+            for (let i = 0; i < responseError.error.Errors.length; i++) {
+              this.toasterService.error(
+                responseError.error.Errors[i].ErrorMessage,
+                'Doğrulama hatası'
+              );
+            }
+          }
         }
-      });
+      );
+    } else {
+      this.toasterService.error('Form Invalid', 'Error');
     }
   }
 }

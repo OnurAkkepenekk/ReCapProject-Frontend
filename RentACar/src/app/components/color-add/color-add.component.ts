@@ -30,11 +30,25 @@ export class ColorAddComponent implements OnInit {
   add() {
     let colorModel = Object.assign({}, this.colorAddForm.value);
     if (this.colorAddForm.valid) {
-      this.colorService.add(colorModel).subscribe((response) => {
-        if (response.success) {
-          this.toasterService.success('Color added', 'Success');
+      this.colorService.add(colorModel).subscribe(
+        (response) => {
+          if (response.success) {
+            this.toasterService.success('Color added', 'Success');
+          }
+        },
+        (responseError) => {
+          console.log(responseError);
+          if (responseError.error.Errors.length > 0) {
+            console.log(responseError.error.Errors);
+            for (let i = 0; i < responseError.error.Errors.length; i++) {
+              this.toasterService.error(
+                responseError.error.Errors[i].ErrorMessage,
+                'Doğrulama hatası'
+              );
+            }
+          }
         }
-      });
+      );
     } else {
       this.toasterService.error("Color didn't add", 'Error');
     }
