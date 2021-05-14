@@ -36,4 +36,10 @@ export class CarService {
   add(car: Car) {
     return this.httpClient.post<SingleResponseModel<Car>>(this.apiUrl + 'cars/add', car);
   }
+  update(car: Car) {
+    return this.httpClient.post<SingleResponseModel<Brand>>(
+      this.apiUrl + 'brands/update',
+      car
+    );
+  }
 }
