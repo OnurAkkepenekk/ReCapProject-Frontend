@@ -17,7 +17,20 @@ export class BrandService {
       this.apiUrl + 'brands/getall'
     );
   }
+  getBrandById(brandId: number): Observable<SingleResponseModel<Brand>> {
+    let newPath = this.apiUrl + 'brands/GetByBrandId?brandId=' + brandId;
+    return this.httpClient.get<SingleResponseModel<Brand>>(newPath);
+  }
   addBrand(brand: Brand) {
-    return this.httpClient.post<SingleResponseModel<Brand>>(this.apiUrl + 'brands/add', brand);
+    return this.httpClient.post<SingleResponseModel<Brand>>(
+      this.apiUrl + 'brands/add',
+      brand
+    );
+  }
+  update(brand: Brand) {
+    return this.httpClient.post<SingleResponseModel<Brand>>(
+      this.apiUrl + 'brands/update',
+      brand
+    );
   }
 }
