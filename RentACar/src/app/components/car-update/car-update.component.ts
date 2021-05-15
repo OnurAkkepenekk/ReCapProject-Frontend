@@ -45,6 +45,7 @@ export class CarUpdateComponent implements OnInit {
       modelYear: [Validators.required],
       dailyPrice: [Validators.required],
       descriptions: [Validators.required],
+      carName: [Validators.required],
     });
   }
 
@@ -59,6 +60,7 @@ export class CarUpdateComponent implements OnInit {
         modelYear: this.carDetail[0].modelYear,
         dailyPrice: this.carDetail[0].dailyPrice,
         descriptions: this.carDetail[0].description,
+        carName: this.carDetail[0].name,
       });
     });
   }
