@@ -94,10 +94,10 @@ export class CarComponent implements OnInit {
   addToCart(car: Car) {
     console.log(car);
     if (car.carId === 3) {
-      this.toastrService.error(car.carName, 'Error');
+      this.toastrService.error(car.descriptions, 'Error');
     } else {
       console.log(car);
-      this.toastrService.success(car.carName, 'add to cart');
+      this.toastrService.success(car.descriptions, 'add to cart');
       this.cartService.addToCart(car);
     }
   }

@@ -33,12 +33,19 @@ export class CarService {
     let newPath = this.apiUrl + 'cars/getAllWithDetail';
     return this.httpClient.get<ListResponseModel<CarDetail>>(newPath);
   }
+  getCarWithDetail(carId: number): Observable<ListResponseModel<CarDetail>> {
+    let newPath = this.apiUrl + 'cars/getCarWithDetail?carId=' + carId;
+    return this.httpClient.get<ListResponseModel<CarDetail>>(newPath);
+  }
   add(car: Car) {
-    return this.httpClient.post<SingleResponseModel<Car>>(this.apiUrl + 'cars/add', car);
+    return this.httpClient.post<SingleResponseModel<Car>>(
+      this.apiUrl + 'cars/add',
+      car
+    );
   }
   update(car: Car) {
-    return this.httpClient.post<SingleResponseModel<Brand>>(
-      this.apiUrl + 'brands/update',
+    return this.httpClient.post<SingleResponseModel<Car>>(
+      this.apiUrl + 'cars/update',
       car
     );
   }

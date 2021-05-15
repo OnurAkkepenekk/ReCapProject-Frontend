@@ -1,0 +1,156 @@
+<div class="content">
+  <div class="center col-md-10">
+    <div
+      id="carouselExampleDark"
+      class="carousel carousel-fade slide carousel-dark"
+      data-bs-ride="carousel"
+    >
+      <ol class="carousel-indicators">
+        <li
+          data-bs-target="#carouselExampleDark"
+          *ngFor="let li of carImages; let i = index"
+          [attr.data-bs-slide-to]="i"
+          [class]="i == 0 ? 'active' : ''"
+        ></li>
+      </ol>
+
+      <div class="carousel-inner">
+        <div
+          *ngFor="let carImage of carImages"
+          [class]="getCurrentImageClass(carImage)"
+          data-bs-interval="3000"
+        >
+          <img
+            src="{{ baseUrl + carImage.imagePath }}"
+            style="height: 100%; width: 100%; object-fit: contain"
+          />
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header"><h5 class="title">Update Car</h5></div>
+      <div class="card-body">
+        <form [formGroup]="carUpdateForm">
+          <div class="mb-3">
+            <label for="carId"> Car Id</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="carId"
+                formControlName="carId"
+                class="form-control"
+                placeholder="Car id"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="colorId"> Color Id</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="colorId"
+                formControlName="colorId"
+                class="form-control"
+                placeholder="colorId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="brandId"> Brand Id</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="brandId"
+                formControlName="brandId"
+                class="form-control"
+                placeholder="Brand name"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="modelYear"> modelYear</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="modelYear"
+                formControlName="modelYear"
+                class="form-control"
+                placeholder="modelYear"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="dailyPrice"> dailyPrice</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="dailyPrice"
+                formControlName="dailyPrice"
+                class="form-control"
+                placeholder="dailyPrice"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="descriptions"> descriptions</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="descriptions"
+                formControlName="descriptions"
+                class="form-control"
+                placeholder="descriptions"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dailyPrice"> Car Name</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="carName"
+                formControlName="dailyPrice"
+                class="form-control"
+                placeholder="dailyPrice"
+              />
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-fill btn-primary" (click)="update()">
+        Update
+      </button>
+    </div>
+  </div>
+</div>
