@@ -8,6 +8,7 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
+import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RentalComponent } from './components/rental/rental.component';
 
@@ -46,7 +47,6 @@ const routes: Routes = [
     component: PaymentComponent,
   },
 
-  
   {
     path: 'cars/add',
     component: CarAddComponent,
@@ -60,7 +60,6 @@ const routes: Routes = [
     component: ColorAddComponent,
   },
 
-
   {
     path: 'cars/update/:carId',
     component: CarUpdateComponent,
@@ -72,6 +71,10 @@ const routes: Routes = [
   {
     path: 'brands/update/:brandId',
     component: BrandUpdateComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
 
