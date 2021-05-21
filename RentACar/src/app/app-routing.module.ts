@@ -11,6 +11,7 @@ import { ColorUpdateComponent } from './components/color-update/color-update.com
 import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RentalComponent } from './components/rental/rental.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
@@ -50,27 +51,33 @@ const routes: Routes = [
   {
     path: 'cars/add',
     component: CarAddComponent,
+    canActivate:[LoginGuard]
   },
   {
     path: 'brands/add',
     component: BrandAddComponent,
+    canActivate:[LoginGuard]
   },
   {
     path: 'colors/add',
     component: ColorAddComponent,
+    canActivate:[LoginGuard]
   },
 
   {
     path: 'cars/update/:carId',
     component: CarUpdateComponent,
+    canActivate:[LoginGuard]
   },
   {
     path: 'colors/update/:id',
     component: ColorUpdateComponent,
+    canActivate:[LoginGuard]
   },
   {
     path: 'brands/update/:brandId',
     component: BrandUpdateComponent,
+    canActivate:[LoginGuard]
   },
   {
     path: 'login',
